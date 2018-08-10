@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
     map: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 200,
+        height: Dimensions.get('window').height - 201,
         marginBottom: 16
     }
 });
