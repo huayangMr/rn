@@ -7,7 +7,8 @@ import {
 } from 'react-native-baidu-map';
 import Dimensions from 'Dimensions';
 import {StackNavigator} from 'react-navigation';
-import busList from "./app/busList";
+import busList,{views} from "./app/busList";
+import busDetail from "./app/busDetail";
 //import Geolocation from 'Geolocation';
 
 type Props = {};
@@ -68,7 +69,6 @@ class App extends Component<Props> {
                 alert("获取位置错误")
             }
         )*/
-        console.warn(JSON.stringify(this.state.center))
         Geolocation.getCurrentPosition()
             .then(data => {
                 this.setState({
@@ -115,7 +115,8 @@ class App extends Component<Props> {
 const screnns = StackNavigator(
     {
         home:{screen: App},
-        buslist:{screen:busList}
+        buslist:{screen:busList},
+        detail:{screen:busDetail}
     },
     {
         navigationOptions:{
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
   },
     map: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 201,
+        height: Dimensions.get('window').height - 200,
         marginBottom: 16
     }
 });

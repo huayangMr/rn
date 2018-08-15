@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Button,FlatList} from 'react-native';
+import {StackNavigator} from 'react-navigation';
+import busDetail from './busDetail';
 
 export default class busList extends Component{
     constructor(){
@@ -15,7 +17,8 @@ export default class busList extends Component{
         fetch(requestUrl)
             .then(response=>response.json())
             .then(responseCode=>{
-               // console.warn(JSON.stringify(responseCode.recommendStops))
+                //console.warn(responseCode.message)
+                //console.warn(JSON.stringify(responseCode.recommendStops))
                 this.setState({responseData: responseCode.recommendStops});
             })
             .catch(error=>{
@@ -27,16 +30,17 @@ export default class busList extends Component{
         return(
             <View style={{flex: 1}}>
                 <Text style={styles.title}>Bus List</Text>
-                <FlatList style={styles.list} data={this.state.responseData}  renderItem = {this.listRender} />
+                <FlatList style={styles.list} data={this.state.responseData}  renderItem = {this.listRender.bind(this)} />
             </View>
         );
     }
 
     listRender({item}){
+        let {navigate} = this.props.navigation;
         return(
             <View style={styles.box}>
                 <View style={{flex:7}}>
-                <Button style={{fontSize:20}} title={item.name}></Button>
+                <Button style={{fontSize:20}} title={item.name} onPress={()=>navigate('detail')}/>
                 </View>
                 <View style={{flex:3}}>
                     <Text style={{textAlign: 'right'}}>{item.distance} m</Text>
@@ -45,6 +49,7 @@ export default class busList extends Component{
         );
     }
 }
+
 
 const styles = StyleSheet.create(
     {
